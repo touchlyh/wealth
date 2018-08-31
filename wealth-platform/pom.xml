@@ -10,6 +10,8 @@
   	<module>wealth-platform-api</module>
   	<module>wealth-platform-provider</module>
   	<module>wealth-platform-web</module>
+  	<module>wealth-platform-facade</module>
+  	<module>wealth-platform-controller</module>
   </modules>
   <properties>
 		<spring-boot.version>1.5.2.RELEASE</spring-boot.version>
