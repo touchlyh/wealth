@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.yuanhong.li.wealth.provider.dao.OrderMapper" >
+  <resultMap id="BaseResultMap" type="org.yuanhong.li.wealth.api.meta.Order" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="item_id" property="itemId" jdbcType="BIGINT" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="BIGINT" />
+    <result column="pay_price" property="payPrice" jdbcType="BIGINT" />
+    <result column="linked_role" property="linkedRole" jdbcType="BIGINT" />
+    <result column="pay_order_sn" property="payOrderSn" jdbcType="VARCHAR" />
+    <result column="pay_method" property="payMethod" jdbcType="VARCHAR" />
+    <result column="create_timestamp" property="createTimestamp" jdbcType="BIGINT" />
+    <result column="pay_timestamp" property="payTimestamp" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="BIGINT" />
+    <result column="is_deleted" property="isDeleted" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, user_name, item_id, item_name, price, pay_price, linked_role, pay_order_sn, 
+    pay_method, create_timestamp, pay_timestamp, status, is_deleted, create_time, modify_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from wealth_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from wealth_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.yuanhong.li.wealth.api.meta.Order" >
+    insert into wealth_order (id, user_id, user_name, 
+      item_id, item_name, price, 
+      pay_price, linked_role, pay_order_sn, 
+      pay_method, create_timestamp, pay_timestamp, 
+      status, is_deleted, create_time, 
+      modify_time)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, 
+      #{itemId,jdbcType=BIGINT}, #{itemName,jdbcType=VARCHAR}, #{price,jdbcType=BIGINT}, 
+      #{payPrice,jdbcType=BIGINT}, #{linkedRole,jdbcType=BIGINT}, #{payOrderSn,jdbcType=VARCHAR}, 
+      #{payMethod,jdbcType=VARCHAR}, #{createTimestamp,jdbcType=BIGINT}, #{payTimestamp,jdbcType=BIGINT}, 
+      #{status,jdbcType=BIGINT}, #{isDeleted,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.yuanhong.li.wealth.api.meta.Order" >
+    insert into wealth_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="itemId != null" >
+        item_id,
+      </if>
+      <if test="itemName != null" >
+        item_name,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="payPrice != null" >
+        pay_price,
+      </if>
+      <if test="linkedRole != null" >
+        linked_role,
+      </if>
+      <if test="payOrderSn != null" >
+        pay_order_sn,
+      </if>
+      <if test="payMethod != null" >
+        pay_method,
+      </if>
+      <if test="createTimestamp != null" >
+        create_timestamp,
+      </if>
+      <if test="payTimestamp != null" >
+        pay_timestamp,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null" >
+        #{itemId,jdbcType=BIGINT},
+      </if>
+      <if test="itemName != null" >
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=BIGINT},
+      </if>
+      <if test="payPrice != null" >
+        #{payPrice,jdbcType=BIGINT},
+      </if>
+      <if test="linkedRole != null" >
+        #{linkedRole,jdbcType=BIGINT},
+      </if>
+      <if test="payOrderSn != null" >
+        #{payOrderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="payMethod != null" >
+        #{payMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="createTimestamp != null" >
+        #{createTimestamp,jdbcType=BIGINT},
+      </if>
+      <if test="payTimestamp != null" >
+        #{payTimestamp,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIGINT},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.yuanhong.li.wealth.api.meta.Order" >
+    update wealth_order
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null" >
+        item_id = #{itemId,jdbcType=BIGINT},
+      </if>
+      <if test="itemName != null" >
+        item_name = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=BIGINT},
+      </if>
+      <if test="payPrice != null" >
+        pay_price = #{payPrice,jdbcType=BIGINT},
+      </if>
+      <if test="linkedRole != null" >
+        linked_role = #{linkedRole,jdbcType=BIGINT},
+      </if>
+      <if test="payOrderSn != null" >
+        pay_order_sn = #{payOrderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="payMethod != null" >
+        pay_method = #{payMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="createTimestamp != null" >
+        create_timestamp = #{createTimestamp,jdbcType=BIGINT},
+      </if>
+      <if test="payTimestamp != null" >
+        pay_timestamp = #{payTimestamp,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIGINT},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.yuanhong.li.wealth.api.meta.Order" >
+    update wealth_order
+    set user_id = #{userId,jdbcType=BIGINT},
+      user_name = #{userName,jdbcType=VARCHAR},
+      item_id = #{itemId,jdbcType=BIGINT},
+      item_name = #{itemName,jdbcType=VARCHAR},
+      price = #{price,jdbcType=BIGINT},
+      pay_price = #{payPrice,jdbcType=BIGINT},
+      linked_role = #{linkedRole,jdbcType=BIGINT},
+      pay_order_sn = #{payOrderSn,jdbcType=VARCHAR},
+      pay_method = #{payMethod,jdbcType=VARCHAR},
+      create_timestamp = #{createTimestamp,jdbcType=BIGINT},
+      pay_timestamp = #{payTimestamp,jdbcType=BIGINT},
+      status = #{status,jdbcType=BIGINT},
+      is_deleted = #{isDeleted,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

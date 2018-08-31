@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.yuanhong.li.wealth.provider.dao.NovelChapterMapper" >
+  <resultMap id="BaseResultMap" type="org.yuanhong.li.wealth.api.meta.NovelChapter" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="novel_id" property="novelId" jdbcType="BIGINT" />
+    <result column="chapter_name" property="chapterName" jdbcType="VARCHAR" />
+    <result column="chapter_tag" property="chapterTag" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="BIGINT" />
+    <result column="is_deleted" property="isDeleted" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, novel_id, chapter_name, chapter_tag, sort, status, is_deleted, create_time, modify_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from wealth_novel_chapter
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from wealth_novel_chapter
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.yuanhong.li.wealth.api.meta.NovelChapter" >
+    insert into wealth_novel_chapter (id, novel_id, chapter_name, 
+      chapter_tag, sort, status, 
+      is_deleted, create_time, modify_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{novelId,jdbcType=BIGINT}, #{chapterName,jdbcType=VARCHAR}, 
+      #{chapterTag,jdbcType=VARCHAR}, #{sort,jdbcType=BIGINT}, #{status,jdbcType=BIGINT}, 
+      #{isDeleted,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.yuanhong.li.wealth.api.meta.NovelChapter" >
+    insert into wealth_novel_chapter
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="novelId != null" >
+        novel_id,
+      </if>
+      <if test="chapterName != null" >
+        chapter_name,
+      </if>
+      <if test="chapterTag != null" >
+        chapter_tag,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="novelId != null" >
+        #{novelId,jdbcType=BIGINT},
+      </if>
+      <if test="chapterName != null" >
+        #{chapterName,jdbcType=VARCHAR},
+      </if>
+      <if test="chapterTag != null" >
+        #{chapterTag,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIGINT},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.yuanhong.li.wealth.api.meta.NovelChapter" >
+    update wealth_novel_chapter
+    <set >
+      <if test="novelId != null" >
+        novel_id = #{novelId,jdbcType=BIGINT},
+      </if>
+      <if test="chapterName != null" >
+        chapter_name = #{chapterName,jdbcType=VARCHAR},
+      </if>
+      <if test="chapterTag != null" >
+        chapter_tag = #{chapterTag,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIGINT},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.yuanhong.li.wealth.api.meta.NovelChapter" >
+    update wealth_novel_chapter
+    set novel_id = #{novelId,jdbcType=BIGINT},
+      chapter_name = #{chapterName,jdbcType=VARCHAR},
+      chapter_tag = #{chapterTag,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=BIGINT},
+      status = #{status,jdbcType=BIGINT},
+      is_deleted = #{isDeleted,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
