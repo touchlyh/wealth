@@ -4,7 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class UserProfile implements Serializable {
-    private Long id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4902766713388948730L;
+
+	private Long id;
 
     private String nick;
 
@@ -29,8 +34,6 @@ public class UserProfile implements Serializable {
     private Date createTime;
 
     private Date modifyTime;
-
-    private static final long serialVersionUID = 1L;
 
     public Long getId() {
         return id;

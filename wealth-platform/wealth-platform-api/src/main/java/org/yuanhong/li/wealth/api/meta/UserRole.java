@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class UserRole implements Serializable {
-    private Long id;
+
+	private static final long serialVersionUID = -7494655607654190225L;
+
+	private Long id;
 
     private Long userId;
 
@@ -21,8 +24,6 @@ public class UserRole implements Serializable {
     private Date createTime;
 
     private Date modifyTime;
-
-    private static final long serialVersionUID = 1L;
 
     public Long getId() {
         return id;

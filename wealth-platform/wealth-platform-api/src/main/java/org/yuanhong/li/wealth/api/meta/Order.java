@@ -4,7 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Order implements Serializable {
-    private Long id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8705466762333232736L;
+
+	private Long id;
 
     private Long userId;
 
@@ -35,8 +40,6 @@ public class Order implements Serializable {
     private Date createTime;
 
     private Date modifyTime;
-
-    private static final long serialVersionUID = 1L;
 
     public Long getId() {
         return id;

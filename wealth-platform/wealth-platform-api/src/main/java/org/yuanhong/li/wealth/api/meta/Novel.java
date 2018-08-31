@@ -4,7 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Novel implements Serializable {
-    private Long id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1365086948960417400L;
+
+	private Long id;
 
     private String novelName;
 
@@ -23,8 +28,6 @@ public class Novel implements Serializable {
     private Date createTime;
 
     private Date modifyTime;
-
-    private static final long serialVersionUID = 1L;
 
     public Long getId() {
         return id;
