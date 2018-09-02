@@ -1,188 +1,210 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.yuanhong.li.wealth.provider.dao.UserProfileMapper" >
-  <resultMap id="BaseResultMap" type="org.yuanhong.li.wealth.api.meta.UserProfile" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="nick" property="nick" jdbcType="VARCHAR" />
-    <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="phone" property="phone" jdbcType="VARCHAR" />
-    <result column="avatar" property="avatar" jdbcType="VARCHAR" />
-    <result column="source" property="source" jdbcType="BIGINT" />
-    <result column="third_id" property="thirdId" jdbcType="VARCHAR" />
-    <result column="token" property="token" jdbcType="VARCHAR" />
-    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
-    <result column="status" property="status" jdbcType="BIGINT" />
-    <result column="is_deleted" property="isDeleted" jdbcType="BIGINT" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yuanhong.li.wealth.provider.dao.UserProfileMapper">
+  <resultMap id="BaseResultMap" type="org.yuanhong.li.wealth.api.meta.UserProfile">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="nick" jdbcType="VARCHAR" property="nick" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <result column="passwd" jdbcType="VARCHAR" property="passwd" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+    <result column="third_id" jdbcType="VARCHAR" property="thirdId" />
+    <result column="token" jdbcType="VARCHAR" property="token" />
+    <result column="last_login_time" jdbcType="BIGINT" property="lastLoginTime" />
+    <result column="status" jdbcType="BIGINT" property="status" />
+    <result column="is_deleted" jdbcType="BIGINT" property="isDeleted" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    id, nick, description, phone, avatar, source, third_id, token, last_login_time, status, 
-    is_deleted, create_time, modify_time
+  <sql id="Base_Column_List">
+    id, nick, salt, passwd, description, phone, avatar, source, third_id, token, last_login_time, 
+    status, is_deleted, create_time, modify_time
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from wealth_user_profile
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT} and is_deleted=0
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  
+  <select id="selectByThirdId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wealth_user_profile
+    where third_id = #{thirdId,jdbcType=VARCHAR} and is_deleted=0
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from wealth_user_profile
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="org.yuanhong.li.wealth.api.meta.UserProfile" >
-    insert into wealth_user_profile (id, nick, description, 
-      phone, avatar, source, 
-      third_id, token, last_login_time, 
-      status, is_deleted, create_time, 
-      modify_time)
-    values (#{id,jdbcType=BIGINT}, #{nick,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{source,jdbcType=BIGINT}, 
-      #{thirdId,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=BIGINT}, #{isDeleted,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{modifyTime,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="org.yuanhong.li.wealth.api.meta.UserProfile"
+  useGeneratedKeys="true" keyProperty="id">
+    insert into wealth_user_profile (id, nick, salt, 
+      passwd, description, phone, 
+      avatar, source, third_id, 
+      token, last_login_time, status, 
+      is_deleted, create_time, modify_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{nick,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, 
+      #{passwd,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{avatar,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, #{thirdId,jdbcType=VARCHAR}, 
+      #{token,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=BIGINT}, #{status,jdbcType=BIGINT}, 
+      #{isDeleted,jdbcType=BIGINT}, now(), now()
+      )
   </insert>
-  <insert id="insertSelective" parameterType="org.yuanhong.li.wealth.api.meta.UserProfile" >
+  <insert id="insertSelective" parameterType="org.yuanhong.li.wealth.api.meta.UserProfile"
+  useGeneratedKeys="true" keyProperty="id">
     insert into wealth_user_profile
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="nick != null" >
+      <if test="nick != null">
         nick,
       </if>
-      <if test="description != null" >
+      <if test="salt != null">
+        salt,
+      </if>
+      <if test="passwd != null">
+        passwd,
+      </if>
+      <if test="description != null">
         description,
       </if>
-      <if test="phone != null" >
+      <if test="phone != null">
         phone,
       </if>
-      <if test="avatar != null" >
+      <if test="avatar != null">
         avatar,
       </if>
-      <if test="source != null" >
+      <if test="source != null">
         source,
       </if>
-      <if test="thirdId != null" >
+      <if test="thirdId != null">
         third_id,
       </if>
-      <if test="token != null" >
+      <if test="token != null">
         token,
       </if>
-      <if test="lastLoginTime != null" >
+      <if test="lastLoginTime != null">
         last_login_time,
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         status,
       </if>
-      <if test="isDeleted != null" >
+      <if test="isDeleted != null">
         is_deleted,
       </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="modifyTime != null" >
-        modify_time,
-      </if>
+      create_time,modify_time
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="nick != null" >
+      <if test="nick != null">
         #{nick,jdbcType=VARCHAR},
       </if>
-      <if test="description != null" >
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="passwd != null">
+        #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
         #{description,jdbcType=VARCHAR},
       </if>
-      <if test="phone != null" >
+      <if test="phone != null">
         #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="avatar != null" >
+      <if test="avatar != null">
         #{avatar,jdbcType=VARCHAR},
       </if>
-      <if test="source != null" >
-        #{source,jdbcType=BIGINT},
+      <if test="source != null">
+        #{source,jdbcType=VARCHAR},
       </if>
-      <if test="thirdId != null" >
+      <if test="thirdId != null">
         #{thirdId,jdbcType=VARCHAR},
       </if>
-      <if test="token != null" >
+      <if test="token != null">
         #{token,jdbcType=VARCHAR},
       </if>
-      <if test="lastLoginTime != null" >
-        #{lastLoginTime,jdbcType=TIMESTAMP},
+      <if test="lastLoginTime != null">
+        #{lastLoginTime,jdbcType=BIGINT},
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         #{status,jdbcType=BIGINT},
       </if>
-      <if test="isDeleted != null" >
+      <if test="isDeleted != null">
         #{isDeleted,jdbcType=BIGINT},
       </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="modifyTime != null" >
-        #{modifyTime,jdbcType=TIMESTAMP},
-      </if>
+      now(),now()
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.yuanhong.li.wealth.api.meta.UserProfile" >
+  <update id="updateByPrimaryKeySelective" parameterType="org.yuanhong.li.wealth.api.meta.UserProfile">
     update wealth_user_profile
-    <set >
-      <if test="nick != null" >
+    <set>
+      <if test="nick != null">
         nick = #{nick,jdbcType=VARCHAR},
       </if>
-      <if test="description != null" >
+      <if test="salt != null">
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="passwd != null">
+        passwd = #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
         description = #{description,jdbcType=VARCHAR},
       </if>
-      <if test="phone != null" >
+      <if test="phone != null">
         phone = #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="avatar != null" >
+      <if test="avatar != null">
         avatar = #{avatar,jdbcType=VARCHAR},
       </if>
-      <if test="source != null" >
-        source = #{source,jdbcType=BIGINT},
+      <if test="source != null">
+        source = #{source,jdbcType=VARCHAR},
       </if>
-      <if test="thirdId != null" >
+      <if test="thirdId != null">
         third_id = #{thirdId,jdbcType=VARCHAR},
       </if>
-      <if test="token != null" >
+      <if test="token != null">
         token = #{token,jdbcType=VARCHAR},
       </if>
-      <if test="lastLoginTime != null" >
-        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      <if test="lastLoginTime != null">
+        last_login_time = #{lastLoginTime,jdbcType=BIGINT},
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         status = #{status,jdbcType=BIGINT},
       </if>
-      <if test="isDeleted != null" >
+      <if test="isDeleted != null">
         is_deleted = #{isDeleted,jdbcType=BIGINT},
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="modifyTime != null" >
-        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      </if>
+      modify_time = now()
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.yuanhong.li.wealth.api.meta.UserProfile" >
+  <update id="updateByPrimaryKey" parameterType="org.yuanhong.li.wealth.api.meta.UserProfile">
     update wealth_user_profile
     set nick = #{nick,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      passwd = #{passwd,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       avatar = #{avatar,jdbcType=VARCHAR},
-      source = #{source,jdbcType=BIGINT},
+      source = #{source,jdbcType=VARCHAR},
       third_id = #{thirdId,jdbcType=VARCHAR},
       token = #{token,jdbcType=VARCHAR},
-      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      last_login_time = #{lastLoginTime,jdbcType=BIGINT},
       status = #{status,jdbcType=BIGINT},
       is_deleted = #{isDeleted,jdbcType=BIGINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      modify_time = now()
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

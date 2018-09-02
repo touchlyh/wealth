@@ -4,14 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class UserProfile implements Serializable {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 4902766713388948730L;
-
-	private Long id;
+    private Long id;
 
     private String nick;
+
+    private String salt;
+
+    private String passwd;
 
     private String description;
 
@@ -19,13 +18,13 @@ public class UserProfile implements Serializable {
 
     private String avatar;
 
-    private Long source;
+    private String source;
 
     private String thirdId;
 
     private String token;
 
-    private Date lastLoginTime;
+    private Long lastLoginTime;
 
     private Long status;
 
@@ -34,6 +33,8 @@ public class UserProfile implements Serializable {
     private Date createTime;
 
     private Date modifyTime;
+
+    private static final long serialVersionUID = 1L;
 
     public Long getId() {
         return id;
@@ -49,6 +50,22 @@ public class UserProfile implements Serializable {
 
     public void setNick(String nick) {
         this.nick = nick == null ? null : nick.trim();
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt == null ? null : salt.trim();
+    }
+
+    public String getPasswd() {
+        return passwd;
+    }
+
+    public void setPasswd(String passwd) {
+        this.passwd = passwd == null ? null : passwd.trim();
     }
 
     public String getDescription() {
@@ -75,12 +92,12 @@ public class UserProfile implements Serializable {
         this.avatar = avatar == null ? null : avatar.trim();
     }
 
-    public Long getSource() {
+    public String getSource() {
         return source;
     }
 
-    public void setSource(Long source) {
-        this.source = source;
+    public void setSource(String source) {
+        this.source = source == null ? null : source.trim();
     }
 
     public String getThirdId() {
@@ -99,11 +116,11 @@ public class UserProfile implements Serializable {
         this.token = token == null ? null : token.trim();
     }
 
-    public Date getLastLoginTime() {
+    public Long getLastLoginTime() {
         return lastLoginTime;
     }
 
-    public void setLastLoginTime(Date lastLoginTime) {
+    public void setLastLoginTime(Long lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
     }
 
@@ -153,6 +170,8 @@ public class UserProfile implements Serializable {
         UserProfile other = (UserProfile) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getNick() == null ? other.getNick() == null : this.getNick().equals(other.getNick()))
+            && (this.getSalt() == null ? other.getSalt() == null : this.getSalt().equals(other.getSalt()))
+            && (this.getPasswd() == null ? other.getPasswd() == null : this.getPasswd().equals(other.getPasswd()))
             && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
             && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
             && (this.getAvatar() == null ? other.getAvatar() == null : this.getAvatar().equals(other.getAvatar()))
@@ -172,6 +191,8 @@ public class UserProfile implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getNick() == null) ? 0 : getNick().hashCode());
+        result = prime * result + ((getSalt() == null) ? 0 : getSalt().hashCode());
+        result = prime * result + ((getPasswd() == null) ? 0 : getPasswd().hashCode());
         result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
         result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
         result = prime * result + ((getAvatar() == null) ? 0 : getAvatar().hashCode());
@@ -194,6 +215,8 @@ public class UserProfile implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", nick=").append(nick);
+        sb.append(", salt=").append(salt);
+        sb.append(", passwd=").append(passwd);
         sb.append(", description=").append(description);
         sb.append(", phone=").append(phone);
         sb.append(", avatar=").append(avatar);
