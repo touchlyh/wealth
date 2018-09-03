@@ -16,4 +16,6 @@ public interface UserProfileMapper {
     int updateByPrimaryKey(UserProfile record);
     
     UserProfile selectByThirdId(String thirdId);
+    
+    UserProfile selectByToken(String token);
 }

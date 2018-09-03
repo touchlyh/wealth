@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.yuanhong.li.wealth.controller.utils.CookieWealthUtils;
 import org.yuanhong.li.wealth.facade.LoginFacade;
 import org.yuanhong.li.wealth.facade.vo.result.WealthResult;
 import org.yuanhong.li.wealth.facade.vo.user.LoginUserVO;
@@ -38,6 +39,7 @@ public class LoginController {
 		userVO.setSource(source);
 		WealthResult<LoginUserVO> result = loginFacade.register(userVO);
 		if(result.isSuccess()) {
+			addUserCookie(httpResponse, result);
 			return !StringUtils.isEmpty(next) ? "redirect:"+next : "redirect:"+HOME_PAGE_URI;
 		} else {
 			model.addAttribute("msg", result.getMsg());
@@ -55,12 +57,24 @@ public class LoginController {
 		userVO.setPasswd(password);
 		WealthResult<LoginUserVO> result = loginFacade.login(userVO);
 		if(result.isSuccess()) {
+			addUserCookie(httpResponse, result);
 			return !StringUtils.isEmpty(next) ? "redirect:"+next : "redirect:"+HOME_PAGE_URI;
 		} else {
 			model.addAttribute("msg", result.getMsg());
 			model.addAttribute("code", result.getCode());
 			model.addAttribute("thirdId", thirdId);
 			return "/user/login";
+		}
+	}
+
+	private void addUserCookie(HttpServletResponse httpResponse, WealthResult<LoginUserVO> result) {
+		LoginUserVO userVO;
+		userVO = result.getData();
+		try {
+			CookieWealthUtils.setCookie(httpResponse, CookieWealthUtils.COOKIE_USER_TOKEN, userVO.getToken(),
+					CookieWealthUtils.COOKIE_MAXAGE, true);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

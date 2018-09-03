@@ -21,7 +21,7 @@ CREATE TABLE `wealth_user_profile` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='wealth用户表';
 
 CREATE TABLE `wealth_role` (
-  `id` bigint(20) NOT NULL COMMENT '主键ID',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `role` varchar(64)  COMMENT '角色名称',
   `icon` varchar(256)  COMMENT '角色图标',
   `description` varchar(256)  COMMENT '角色描述',
@@ -34,7 +34,7 @@ CREATE TABLE `wealth_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='wealth角色表';
 
 CREATE TABLE `wealth_user_role` (
-  `id` bigint(20) NOT NULL COMMENT '主键ID',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `user_id` bigint(20)  COMMENT '用户ID',
   `role_id` bigint(20)  COMMENT '角色Id',
   `duration` bigint(20)  COMMENT '角色持续时间',
@@ -48,7 +48,7 @@ CREATE TABLE `wealth_user_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='wealth用户角色表';
 
 CREATE TABLE `wealth_role_resource` (
-  `id` bigint(20) NOT NULL COMMENT '主键ID',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `role_id` bigint(20)  COMMENT '角色ID',
   `op` varchar(64)  COMMENT '权限:READ,WRITE,EXE',
   `res_type` varchar(64)  COMMENT '资源类型:URI',
@@ -63,7 +63,7 @@ CREATE TABLE `wealth_role_resource` (
 
 ###商品表,可以用作虚拟套餐
 CREATE TABLE `wealth_item` (
-  `id` bigint(20) NOT NULL COMMENT '主键ID',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `name` varchar(128)  COMMENT '商品名称',
   `image` varchar(256)  COMMENT '商品图片',
   `description` varchar(512)  COMMENT '商品描述',
@@ -78,7 +78,7 @@ CREATE TABLE `wealth_item` (
 
 ###交易相关的表
 CREATE TABLE `wealth_order` (
-  `id` bigint(20) NOT NULL COMMENT '主键ID',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `user_id` bigint(20)  COMMENT '用户ID',
   `user_name` varchar(64)  COMMENT '用户名',
   `item_id` bigint(20)  COMMENT '商品ID',
@@ -100,7 +100,7 @@ CREATE TABLE `wealth_order` (
 
 ###内容表资源存储
 CREATE TABLE `wealth_novel` (
-  `id` bigint(20) NOT NULL COMMENT '主键ID',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `novel_name` varchar(64)  COMMENT '小说名',
   `author` varchar(64)  COMMENT '作者名',
   `tags` varchar(128)  COMMENT '标签名，用分号分割',
@@ -115,7 +115,7 @@ CREATE TABLE `wealth_novel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='wealth小说表';
 
 CREATE TABLE `wealth_novel_chapter` (
-  `id` bigint(20) NOT NULL COMMENT '主键ID',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `novel_id` bigint(20)  COMMENT '小说ID',
   `chapter_name` varchar(64)  COMMENT '章节名',
   `chapter_tag` varchar(64)  COMMENT '章节标签:新',
@@ -129,7 +129,7 @@ CREATE TABLE `wealth_novel_chapter` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='wealth小说章节表';
 
 CREATE TABLE `wealth_novel_chapter_media` (
-  `id` bigint(20) NOT NULL COMMENT '主键ID',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `novel_id` bigint(20)  COMMENT '小说ID',
   `chapter_id` bigint(20)  COMMENT '章节ID',
   `clip` varchar(256)  COMMENT '片段',

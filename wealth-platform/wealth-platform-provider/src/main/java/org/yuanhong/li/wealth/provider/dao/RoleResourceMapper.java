@@ -1,5 +1,7 @@
 package org.yuanhong.li.wealth.provider.dao;
 
+import java.util.List;
+
 import org.yuanhong.li.wealth.api.meta.RoleResource;
 
 public interface RoleResourceMapper {
@@ -14,4 +16,8 @@ public interface RoleResourceMapper {
     int updateByPrimaryKeySelective(RoleResource record);
 
     int updateByPrimaryKey(RoleResource record);
+    
+    List<RoleResource> selectByRoleId(Long roleId);
+    
+    List<RoleResource> selectByRoleIdList(List<Long> roleIds);
 }

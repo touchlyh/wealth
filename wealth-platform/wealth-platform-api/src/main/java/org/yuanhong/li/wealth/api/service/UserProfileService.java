@@ -24,4 +24,11 @@ public interface UserProfileService {
 	 * @return
 	 */
 	public UserProfile getByThirdId(String thirdId);
+	
+	/**
+	 * 基于用户的token查询信息
+	 * @param token
+	 * @return
+	 */
+	public UserProfile getByToken(String token);
 }
