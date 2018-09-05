@@ -4,9 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Novel implements Serializable {
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1365086948960417400L;
 
 	private Long id;

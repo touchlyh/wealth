@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.yuanhong.li.wealth.filter.AuthorityFilter;
+import org.yuanhong.li.wealth.filter.UserContextFilter;
 
 
 /**n
@@ -36,15 +37,30 @@ public class BaseConfig {
 	}
 	
 	/**
-	 * 配置mainFilter
+	 * 配置AuthorityFilter
 	 * @return
-	 * hzliyong
+	 * yuanhong.li
+	 */
+//	@Bean
+//	public FilterRegistrationBean authorityFilter() {
+//		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+//		AuthorityFilter authorityFilter = new AuthorityFilter();
+//		registrationBean.setFilter(authorityFilter);
+//		registrationBean.setOrder(1);
+//		registrationBean.addUrlPatterns("/*");
+//		return registrationBean;
+//	}
+	
+	/**
+	 * 配置UserContextFilter
+	 * @return
+	 * yuanhong.li
 	 */
 	@Bean
-	public FilterRegistrationBean authorityFilter() {
+	public FilterRegistrationBean userContextFilter() {
 		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-		AuthorityFilter authorityFilter = new AuthorityFilter();
-		registrationBean.setFilter(authorityFilter);
+		UserContextFilter userContextFilter = new UserContextFilter();
+		registrationBean.setFilter(userContextFilter);
 		registrationBean.setOrder(1);
 		registrationBean.addUrlPatterns("/*");
 		return registrationBean;

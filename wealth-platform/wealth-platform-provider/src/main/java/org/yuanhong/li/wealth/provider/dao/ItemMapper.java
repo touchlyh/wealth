@@ -1,5 +1,7 @@
 package org.yuanhong.li.wealth.provider.dao;
 
+import java.util.List;
+
 import org.yuanhong.li.wealth.api.meta.Item;
 
 public interface ItemMapper {
@@ -14,4 +16,7 @@ public interface ItemMapper {
     int updateByPrimaryKeySelective(Item record);
 
     int updateByPrimaryKey(Item record);
+    
+    List<Item> queryAllItemsByPrice();
+    
 }

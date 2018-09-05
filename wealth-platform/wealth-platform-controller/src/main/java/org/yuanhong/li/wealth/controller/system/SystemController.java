@@ -28,7 +28,7 @@ public class SystemController {
 	
 	@RequestMapping(value = "/api/system/info", method = RequestMethod.GET)
 	public String noAuthority(Model model,HttpServletResponse httpResponse,
-			@RequestParam(value = "code",required = true) String code) {
+			@RequestParam(value = "code",required = false, defaultValue="404") String code) {
 		model.addAttribute("code", code);
 		httpResponse.setStatus(Integer.valueOf(code));
 		return "system/system";

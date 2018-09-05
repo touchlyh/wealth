@@ -1,9 +1,7 @@
 package org.yuanhong.li.wealth.filter;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -16,33 +14,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.yuanhong.li.wealth.controller.utils.BaseUserContext;
 import org.yuanhong.li.wealth.controller.utils.CookieWealthUtils;
 import org.yuanhong.li.wealth.facade.UserRoleFacade;
 import org.yuanhong.li.wealth.facade.vo.result.WealthResult;
 import org.yuanhong.li.wealth.facade.vo.user.UserProfileVO;
 
-public class AuthorityFilter implements Filter {
-
+public class UserContextFilter implements Filter{
+	
 	private UserRoleFacade userRoleFacade;
 
 	private ServletContext context;
-	
-	public static final long VISTOR_ROLE_ID = 1L;
-	
-	private List<String> whiteList = new ArrayList<String>();
 
 	@Override
 	public void init(FilterConfig config) throws ServletException {
 		context = config.getServletContext();
 		ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(context);
 		userRoleFacade = ctx.getBean("userRoleFacade", UserRoleFacade.class);
-		whiteList.add("/api/user");
-		whiteList.add("/api/system");
-		whiteList.add("/api/item");
-		whiteList.add("/health");
 	}
 
 	@Override
@@ -65,16 +55,9 @@ public class AuthorityFilter implements Filter {
 			response.sendRedirect(request.getContextPath() + "/api/system/info?code="+HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	}
-
+	
 	private void doAuthority(ServletRequest req, ServletResponse resp, FilterChain chain, HttpServletRequest request,
 			HttpServletResponse response) throws Exception, IOException, ServletException {
-		String uri = request.getRequestURI();
-		for(String whiteUri : whiteList) {
-			if(uri.contains(whiteUri)) {
-				chain.doFilter(req, resp);
-				return;
-			}
-		}
 
 		// 进行url参数处理
 		StringBuilder url = new StringBuilder(request.getRequestURI());
@@ -101,37 +84,17 @@ public class AuthorityFilter implements Filter {
 		}
 		//token为空，或者token查不到对应的用户，则认为是游客
 		boolean isVisitor = (userProfileVO == null);
-		List<String> allowUris = null;
 		if(isVisitor) {
-			WealthResult<List<String>> vistorResult = userRoleFacade.getRoleUriList(VISTOR_ROLE_ID);
-			allowUris = vistorResult.getData();
-		} else {
-			WealthResult<List<String>> vistorResult = userRoleFacade.getUserUriList(userProfileVO.getId());
-			allowUris = vistorResult.getData();
-		}
-		//判断访问的uri是否有权限
-		if(!CollectionUtils.isEmpty(allowUris) && allowUris.contains(uri)) {
-			//有权限：交给下一个filter处理
 			chain.doFilter(req, resp);
-		}else {
-			doForbidonRedirct(request, response, isVisitor);
-		}
-	}
-
-	private void doForbidonRedirct(HttpServletRequest request, HttpServletResponse response, boolean isVisitor)
-			throws IOException {
-		//没有权限，分两部分
-		if(isVisitor) {
-			response.sendRedirect(request.getContextPath() + "/api/user/login");
 		} else {
-			//建议跳转到会员购买页
-			response.sendRedirect(request.getContextPath() + "/api/system/info?code="+HttpServletResponse.SC_FORBIDDEN);
+			BaseUserContext.setUserId(userProfileVO.getId());
+			BaseUserContext.setLoginToken(token);
+			chain.doFilter(req, resp);
 		}
 	}
 
 	@Override
 	public void destroy() {
-
 	}
 
 	public UserRoleFacade getUserRoleFacade() {

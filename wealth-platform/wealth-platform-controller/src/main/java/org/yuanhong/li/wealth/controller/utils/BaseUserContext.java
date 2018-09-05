@@ -1,6 +1,7 @@
 package org.yuanhong.li.wealth.controller.utils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ public class BaseUserContext {
 	
 	private static ThreadLocal<String> beautyToken = new ThreadLocal<String>();
 	private static ThreadLocal<Long> user = new ThreadLocal<Long>();
+	private static ThreadLocal<List<Long>> userRole = new ThreadLocal<List<Long>>();
 	private static ThreadLocal<String> omsManagerName = new ThreadLocal<String>();
 	private static ThreadLocal<String> cmsManagerName = new ThreadLocal<String>();
 
@@ -72,6 +74,7 @@ public class BaseUserContext {
 		response.remove();
 		beautyToken.remove();
 		user.remove();
+		userRole.remove();
 		omsManagerName.remove();
 		biCookie.remove();
 	}
@@ -190,6 +193,14 @@ public class BaseUserContext {
 
 	public static void setUserId(Long userId) {
 		user.set(userId);
+	}
+	
+	public static List<Long> getUserRoleIds() {
+		return userRole.get();
+	}
+
+	public static void setUserRoleIds(List<Long> userRoleIds) {
+		userRole.set(userRoleIds);
 	}
 	
 	public static void setOmsManagerName(String s) {

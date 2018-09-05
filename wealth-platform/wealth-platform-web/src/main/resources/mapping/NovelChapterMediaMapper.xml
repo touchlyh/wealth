@@ -25,15 +25,17 @@
     delete from wealth_novel_chapter_media
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="org.yuanhong.li.wealth.api.meta.NovelChapterMedia" >
+  <insert id="insert" parameterType="org.yuanhong.li.wealth.api.meta.NovelChapterMedia" 
+  	useGeneratedKeys="true" keyProperty="id">
     insert into wealth_novel_chapter_media (id, novel_id, chapter_id, 
       clip, sort, status, is_deleted, 
       create_time, modify_time)
     values (#{id,jdbcType=BIGINT}, #{novelId,jdbcType=BIGINT}, #{chapterId,jdbcType=BIGINT}, 
       #{clip,jdbcType=VARCHAR}, #{sort,jdbcType=BIGINT}, #{status,jdbcType=BIGINT}, #{isDeleted,jdbcType=BIGINT}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP})
+      now(),now())
   </insert>
-  <insert id="insertSelective" parameterType="org.yuanhong.li.wealth.api.meta.NovelChapterMedia" >
+  <insert id="insertSelective" parameterType="org.yuanhong.li.wealth.api.meta.NovelChapterMedia" 
+  	useGeneratedKeys="true" keyProperty="id">
     insert into wealth_novel_chapter_media
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -57,12 +59,7 @@
       <if test="isDeleted != null" >
         is_deleted,
       </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="modifyTime != null" >
-        modify_time,
-      </if>
+      create_time,modify_time
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -86,12 +83,7 @@
       <if test="isDeleted != null" >
         #{isDeleted,jdbcType=BIGINT},
       </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="modifyTime != null" >
-        #{modifyTime,jdbcType=TIMESTAMP},
-      </if>
+      now(),now()
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="org.yuanhong.li.wealth.api.meta.NovelChapterMedia" >
@@ -118,9 +110,7 @@
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="modifyTime != null" >
-        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      </if>
+      modify_time = now()
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -133,7 +123,7 @@
       status = #{status,jdbcType=BIGINT},
       is_deleted = #{isDeleted,jdbcType=BIGINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      modify_time = now()
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
