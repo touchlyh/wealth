@@ -21,6 +21,13 @@
     from wealth_novel_chapter
     where id = #{id,jdbcType=BIGINT}
   </select>
+  
+  <select id="selectByNovelId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from wealth_novel_chapter
+    where novel_id = #{novelId,jdbcType=BIGINT} and is_deleted=0 order by sort desc
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from wealth_novel_chapter
     where id = #{id,jdbcType=BIGINT}

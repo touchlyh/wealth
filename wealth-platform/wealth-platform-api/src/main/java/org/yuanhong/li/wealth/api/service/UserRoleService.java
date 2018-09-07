@@ -27,4 +27,20 @@ public interface UserRoleService {
 	 * @return
 	 */
 	public List<RoleResource> getRoleResources(Long roleId);
+	
+	/**
+	 * 基于用户和parent查询
+	 * @param userId
+	 * @param parentId
+	 * @return
+	 */
+	public List<RoleResource> getUserRoleResources(Long userId, Long parentId);
+	
+	/**
+	 * 基于角色和parent查询
+	 * @param roleId
+	 * @param parentId
+	 * @return
+	 */
+	public List<RoleResource> getRoleResources(Long roleId, Long parentId);
 }

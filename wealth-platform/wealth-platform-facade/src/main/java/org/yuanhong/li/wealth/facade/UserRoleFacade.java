@@ -2,6 +2,7 @@ package org.yuanhong.li.wealth.facade;
 
 import java.util.List;
 
+import org.yuanhong.li.wealth.api.meta.RoleResource;
 import org.yuanhong.li.wealth.facade.vo.result.WealthResult;
 import org.yuanhong.li.wealth.facade.vo.user.UserProfileVO;
 
@@ -19,12 +20,28 @@ public interface UserRoleFacade {
 	 * @param roleId
 	 * @return
 	 */
-	public WealthResult<List<String>> getRoleUriList(Long roleId);
+	public WealthResult<List<RoleResource>> getRoleResourceList(Long roleId);
 	
 	/**
 	 * 基于用户Id查询对应的资源列表
 	 * @param userId
 	 * @return
 	 */
-	public WealthResult<List<String>> getUserUriList(Long userId);
+	public WealthResult<List<RoleResource>> getUserResourceList(Long userId);
+	
+	/**
+	 * 查询某个parent下的角色对应的资源列表
+	 * @param roleId
+	 * @param parentId
+	 * @return
+	 */
+	public List<RoleResource> getRoleResourceList(Long roleId, Long parentId);
+	
+	/**
+	 * 查询某个parent下用户对应的资源列表
+	 * @param roleId
+	 * @param parentId
+	 * @return
+	 */
+	public List<RoleResource> getUserResourceList(Long roleId, Long parentId);
 }

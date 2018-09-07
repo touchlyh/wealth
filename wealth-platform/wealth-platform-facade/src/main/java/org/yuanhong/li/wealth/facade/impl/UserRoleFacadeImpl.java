@@ -1,7 +1,6 @@
 package org.yuanhong.li.wealth.facade.impl;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
@@ -38,23 +37,33 @@ public class UserRoleFacadeImpl implements UserRoleFacade{
 	}
 
 	@Override
-	public WealthResult<List<String>> getRoleUriList(Long roleId) {
+	public WealthResult<List<RoleResource>> getRoleResourceList(Long roleId) {
 		List<RoleResource> roleResList = userRoleService.getRoleResources(roleId);
 		if(CollectionUtils.isEmpty(roleResList)) {
-			return new WealthResult<List<String>>(ResultCode.RES_NOT_EXSISTED.getCode(),"没有角色对应资源:"+roleId,null);
+			return new WealthResult<List<RoleResource>>(ResultCode.RES_NOT_EXSISTED.getCode(),"没有角色对应资源:"+roleId,null);
 		}
-		List<String> resources = roleResList.stream().map(rr->rr.getResource()).collect(Collectors.toList());
-		return new WealthResult<List<String>>(ResultCode.SUCCESS,resources);
+		return new WealthResult<List<RoleResource>>(ResultCode.SUCCESS,roleResList);
 	}
 
 	@Override
-	public WealthResult<List<String>> getUserUriList(Long userId) {
+	public WealthResult<List<RoleResource>> getUserResourceList(Long userId) {
 		List<RoleResource> roleResList = userRoleService.getUserRoleResources(userId);
 		if(CollectionUtils.isEmpty(roleResList)) {
-			return new WealthResult<List<String>>(ResultCode.RES_NOT_EXSISTED.getCode(),"没有用户对应资源:"+userId,null);
+			return new WealthResult<List<RoleResource>>(ResultCode.RES_NOT_EXSISTED.getCode(),"没有用户对应资源:"+userId,null);
 		}
-		List<String> resources = roleResList.stream().map(rr->rr.getResource()).collect(Collectors.toList());
-		return new WealthResult<List<String>>(ResultCode.SUCCESS,resources);
+		return new WealthResult<List<RoleResource>>(ResultCode.SUCCESS,roleResList);
+	}
+
+	@Override
+	public List<RoleResource> getRoleResourceList(Long roleId, Long parentId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<RoleResource> getUserResourceList(Long roleId, Long parentId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

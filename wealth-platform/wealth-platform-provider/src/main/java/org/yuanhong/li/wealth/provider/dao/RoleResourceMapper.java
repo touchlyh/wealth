@@ -20,4 +20,8 @@ public interface RoleResourceMapper {
     List<RoleResource> selectByRoleId(Long roleId);
     
     List<RoleResource> selectByRoleIdList(List<Long> roleIds);
+    
+    List<RoleResource> selectByRoleId(Long roleId, Long parentId);
+    
+    List<RoleResource> selectByRoleIdList(List<Long> roleIds, Long parentId);
 }

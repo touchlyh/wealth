@@ -54,4 +54,20 @@ public class UserRoleServiceImpl implements UserRoleService{
 		return roleResourceMapper.selectByRoleId(roleId);
 	}
 
+	@Override
+	public List<RoleResource> getUserRoleResources(Long userId, Long parentId) {
+		List<UserRole> userRoleList = userRoleMapper.selectByUserId(userId);
+		if(CollectionUtils.isEmpty(userRoleList)) {
+			return null;
+		}
+		List<Long> roleIds = userRoleList.stream().map(ur->ur.getRoleId()).collect(Collectors.toList());
+		
+		return roleResourceMapper.selectByRoleIdList(roleIds, parentId);
+	}
+
+	@Override
+	public List<RoleResource> getRoleResources(Long roleId, Long parentId) {
+		return roleResourceMapper.selectByRoleId(roleId, parentId);
+	}
+
 }

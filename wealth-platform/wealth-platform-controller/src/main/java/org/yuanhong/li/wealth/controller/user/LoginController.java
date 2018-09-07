@@ -23,7 +23,9 @@ public class LoginController {
 	private LoginFacade loginFacade;
 
 	@RequestMapping(value = "/api/user/login", method = RequestMethod.GET)
-	public String getRegisterPage(Model model) {
+	public String getRegisterPage(Model model,
+			@RequestParam(value = "next",required = false) String next) {
+		model.addAttribute("next",next);
 		return "/user/login";
 	}
 	

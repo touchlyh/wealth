@@ -22,6 +22,12 @@
     from wealth_novel
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="queryByModifyTime" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from wealth_novel
+    where is_deleted=0 and modify_time &lt; #{modifyTime,jdbcType=TIMESTAMP} order by modify_time desc limit  #{limit}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from wealth_novel
     where id = #{id,jdbcType=BIGINT}

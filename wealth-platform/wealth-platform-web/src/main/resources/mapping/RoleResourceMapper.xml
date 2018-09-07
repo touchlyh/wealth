@@ -6,14 +6,15 @@
     <result column="role_id" property="roleId" jdbcType="BIGINT" />
     <result column="op" property="op" jdbcType="VARCHAR" />
     <result column="res_type" property="resType" jdbcType="VARCHAR" />
-    <result column="resource" property="resource" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="res_id" property="resId" jdbcType="BIGINT" />
     <result column="status" property="status" jdbcType="BIGINT" />
     <result column="is_deleted" property="isDeleted" jdbcType="BIGINT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, role_id, op, res_type, resource, status, is_deleted, create_time, modify_time
+    id, role_id, op, res_type, parent_id,res_id, status, is_deleted, create_time, modify_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -21,17 +22,25 @@
     from wealth_role_resource
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectByRoleId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByRoleId" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from wealth_role_resource
-    where role_id = #{roleId,jdbcType=BIGINT} and is_deleted=0
+    where role_id = #{roleId,jdbcType=BIGINT}
+    <if test="parentId != null" >
+        and parent_id = #{parentId,jdbcType=BIGINT}
+    </if>
+    and is_deleted=0
   </select>
   <select id="selectByRoleIdList" resultMap="BaseResultMap" >
     select 
     <include refid="Base_Column_List" />
     from wealth_role_resource
-    where is_deleted=0 and role_id in 
+    where is_deleted=0 
+    <if test="parentId != null" >
+        and parent_id = #{parentId,jdbcType=BIGINT}
+    </if>
+    and role_id in 
     <foreach collection="roleIds" index="index" item="roleId" open="(" separator="," close=")">
 	   	#{roleId,jdbcType=BIGINT}
 	</foreach>
@@ -43,11 +52,11 @@
   <insert id="insert" parameterType="org.yuanhong.li.wealth.api.meta.RoleResource" 
   	useGeneratedKeys="true" keyProperty="id">
     insert into wealth_role_resource (id, role_id, op, 
-      res_type, resource, status, 
+      res_type, parent_id, res_id, status, 
       is_deleted, create_time, modify_time
       )
     values (#{id,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{op,jdbcType=VARCHAR}, 
-      #{resType,jdbcType=VARCHAR}, #{resource,jdbcType=VARCHAR}, #{status,jdbcType=BIGINT}, 
+      #{resType,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT},#{resId,jdbcType=BIGINT}, #{status,jdbcType=BIGINT}, 
       #{isDeleted,jdbcType=BIGINT}, now(),now()
       )
   </insert>
@@ -67,8 +76,11 @@
       <if test="resType != null" >
         res_type,
       </if>
-      <if test="resource != null" >
-        resource,
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="resId != null" >
+        res_id,
       </if>
       <if test="status != null" >
         status,
@@ -91,8 +103,11 @@
       <if test="resType != null" >
         #{resType,jdbcType=VARCHAR},
       </if>
-      <if test="resource != null" >
-        #{resource,jdbcType=VARCHAR},
+      <if test="parentId != null" >
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="resId != null" >
+        #{resId,jdbcType=BIGINT},
       </if>
       <if test="status != null" >
         #{status,jdbcType=BIGINT},
@@ -115,8 +130,11 @@
       <if test="resType != null" >
         res_type = #{resType,jdbcType=VARCHAR},
       </if>
-      <if test="resource != null" >
-        resource = #{resource,jdbcType=VARCHAR},
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="resId != null" >
+        res_id = #{resId,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=BIGINT},
@@ -136,7 +154,8 @@
     set role_id = #{roleId,jdbcType=BIGINT},
       op = #{op,jdbcType=VARCHAR},
       res_type = #{resType,jdbcType=VARCHAR},
-      resource = #{resource,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      res_id = #{resId,jdbcType=BIGINT},
       status = #{status,jdbcType=BIGINT},
       is_deleted = #{isDeleted,jdbcType=BIGINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},

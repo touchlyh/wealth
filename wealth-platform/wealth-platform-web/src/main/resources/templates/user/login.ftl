@@ -18,6 +18,7 @@ function doLogin() {
 <input type="text" name="thirdId" value="${thirdId!}"></input>
 <label>密码:</label>
 <input type="password" name="password"></input>
+<input type="hidden" name="next" value="${next!}"></input>
 <input type="button" name="register" value="注册" onclick='doRegister()'></input>
 <input type="button" name="login" value="登录" onclick='doLogin()'></input>
 </form>

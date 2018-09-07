@@ -16,8 +16,10 @@ public class RoleResource implements Serializable {
     private String op;
 
     private String resType;
+    
+    private Long parentId;
 
-    private String resource;
+    private Long resId;
 
     private Long status;
 
@@ -59,15 +61,23 @@ public class RoleResource implements Serializable {
         this.resType = resType == null ? null : resType.trim();
     }
 
-    public String getResource() {
-        return resource;
-    }
+    public Long getParentId() {
+		return parentId;
+	}
 
-    public void setResource(String resource) {
-        this.resource = resource == null ? null : resource.trim();
-    }
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
+	}
 
-    public Long getStatus() {
+	public Long getResId() {
+		return resId;
+	}
+
+	public void setResId(Long resId) {
+		this.resId = resId;
+	}
+
+	public Long getStatus() {
         return status;
     }
 
@@ -115,7 +125,8 @@ public class RoleResource implements Serializable {
             && (this.getRoleId() == null ? other.getRoleId() == null : this.getRoleId().equals(other.getRoleId()))
             && (this.getOp() == null ? other.getOp() == null : this.getOp().equals(other.getOp()))
             && (this.getResType() == null ? other.getResType() == null : this.getResType().equals(other.getResType()))
-            && (this.getResource() == null ? other.getResource() == null : this.getResource().equals(other.getResource()))
+            && (this.getParentId() == null ? other.getParentId() == null : this.getParentId().equals(other.getParentId()))
+            && (this.getResId() == null ? other.getResId() == null : this.getResId().equals(other.getResId()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getIsDeleted() == null ? other.getIsDeleted() == null : this.getIsDeleted().equals(other.getIsDeleted()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -130,7 +141,8 @@ public class RoleResource implements Serializable {
         result = prime * result + ((getRoleId() == null) ? 0 : getRoleId().hashCode());
         result = prime * result + ((getOp() == null) ? 0 : getOp().hashCode());
         result = prime * result + ((getResType() == null) ? 0 : getResType().hashCode());
-        result = prime * result + ((getResource() == null) ? 0 : getResource().hashCode());
+        result = prime * result + ((getParentId() == null) ? 0 : getParentId().hashCode());
+        result = prime * result + ((getResId() == null) ? 0 : getResId().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getIsDeleted() == null) ? 0 : getIsDeleted().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -148,7 +160,8 @@ public class RoleResource implements Serializable {
         sb.append(", roleId=").append(roleId);
         sb.append(", op=").append(op);
         sb.append(", resType=").append(resType);
-        sb.append(", resource=").append(resource);
+        sb.append(", parentId=").append(parentId);
+        sb.append(", resId=").append(resId);
         sb.append(", status=").append(status);
         sb.append(", isDeleted=").append(isDeleted);
         sb.append(", createTime=").append(createTime);
