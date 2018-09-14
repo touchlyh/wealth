@@ -18,6 +18,7 @@ import org.yuanhong.li.wealth.api.dto.NovelChapterDTO;
 import org.yuanhong.li.wealth.api.dto.NovelDTO;
 import org.yuanhong.li.wealth.api.dto.Pageable;
 import org.yuanhong.li.wealth.api.meta.Novel;
+import org.yuanhong.li.wealth.api.meta.NovelChapterMedia;
 import org.yuanhong.li.wealth.api.meta.RoleResource;
 import org.yuanhong.li.wealth.controller.utils.BaseUserContext;
 import org.yuanhong.li.wealth.facade.NovelFacade;
@@ -39,12 +40,12 @@ public class NovelController {
 	@RequestMapping(value = "/api/novel/list", method = RequestMethod.GET)
 	public String queryNovelList(Model model,HttpServletResponse httpResponse,
 			@RequestParam(value = "lastId",required = false) Long lastId,
-			@RequestParam(value = "size",required = false, defaultValue="20") int pageSize) {
+			@RequestParam(value = "size",required = false, defaultValue="100") int pageSize) {
 		Pageable<Novel> novelPage = novelFacade.queryNovelList(lastId, pageSize);
 		model.addAttribute("hasNext", novelPage.isHasNext());
 		model.addAttribute("lastId",novelPage.getLastId());
-		model.addAttribute("data", novelPage.getData());
-		return "test/test";
+		model.addAttribute("datas", novelPage.getData());
+		return "novel/list";
 	}
 	
 	/**
@@ -60,7 +61,7 @@ public class NovelController {
 			return "/api/system/info";
 		}
 		model.addAttribute("novel", novelDto);
-		return "test/test";
+		return "novel/detail";
 	}
 	
 	/**
@@ -101,6 +102,8 @@ public class NovelController {
 			}
 		}
 		model.addAttribute("chapter", chapterDto);
-		return "test/test";
+		List<NovelChapterMedia> mediaList = chapterDto.getMediaList();
+		model.addAttribute("total", mediaList == null ? 0 : mediaList.size());
+		return "novel/chapter";
 	}
 }

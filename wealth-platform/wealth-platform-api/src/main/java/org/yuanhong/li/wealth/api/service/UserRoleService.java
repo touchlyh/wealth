@@ -2,6 +2,7 @@ package org.yuanhong.li.wealth.api.service;
 
 import java.util.List;
 
+import org.yuanhong.li.wealth.api.consts.RoleEnum;
 import org.yuanhong.li.wealth.api.meta.Role;
 import org.yuanhong.li.wealth.api.meta.RoleResource;
 
@@ -43,4 +44,13 @@ public interface UserRoleService {
 	 * @return
 	 */
 	public List<RoleResource> getRoleResources(Long roleId, Long parentId);
+	
+	/**
+	 * 新增用户角色
+	 * @param userId
+	 * @param role
+	 * @param duration 持续时间，会基于购买的会员时长区分
+	 * @return
+	 */
+	public int addUserRole(Long userId,Long duration, RoleEnum role);
 }

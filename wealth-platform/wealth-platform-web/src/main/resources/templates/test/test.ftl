@@ -1,11 +1,6 @@
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-<title>helloworld.</title>
-<link href="https://cdn.bootcss.com/weui/1.1.2/style/weui.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.1.2/css/jquery-weui.min.css">
-<link rel="stylesheet" href="/static/css/demo.css">
+<#include "/common/weiui_css.ftl">
 </head>
 <body>
  <header class='demos-header'>
@@ -43,9 +38,7 @@
     <div class="weui-cell__ft">说明文字</div>
   </div>
 </div>
-
-<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/jquery-weui/1.1.2/js/jquery-weui.min.js"></script>
+<#include "/common/weiui_js.ftl">
 </body>
 
 </html>

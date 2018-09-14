@@ -2,6 +2,7 @@ package org.yuanhong.li.wealth.provider.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.yuanhong.li.wealth.api.meta.RoleResource;
 
 public interface RoleResourceMapper {
@@ -23,5 +24,5 @@ public interface RoleResourceMapper {
     
     List<RoleResource> selectByRoleId(Long roleId, Long parentId);
     
-    List<RoleResource> selectByRoleIdList(List<Long> roleIds, Long parentId);
+    List<RoleResource> selectByRoleIdList(@Param("roleIds")List<Long> roleIds, @Param("parentId")Long parentId);
 }

@@ -6,10 +6,13 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import org.yuanhong.li.wealth.api.consts.BaseParam;
 import org.yuanhong.li.wealth.api.consts.ResultCode;
+import org.yuanhong.li.wealth.api.consts.RoleEnum;
 import org.yuanhong.li.wealth.api.consts.UserSource;
 import org.yuanhong.li.wealth.api.meta.UserProfile;
 import org.yuanhong.li.wealth.api.service.UserProfileService;
+import org.yuanhong.li.wealth.api.service.UserRoleService;
 import org.yuanhong.li.wealth.api.utils.CheckSumBuilder;
 import org.yuanhong.li.wealth.facade.LoginFacade;
 import org.yuanhong.li.wealth.facade.vo.result.WealthResult;
@@ -20,6 +23,9 @@ public class LoginFacadeImpl implements LoginFacade{
 	
 	@Resource
 	private UserProfileService userProfileService;
+	
+	@Resource
+	private UserRoleService userRoleService;
 
 	@Override
 	public WealthResult<LoginUserVO> register(LoginUserVO userVO) {
@@ -76,6 +82,8 @@ public class LoginFacadeImpl implements LoginFacade{
 
 	private LoginUserVO addUser(UserProfile user) {
 		UserProfile userProfile = userProfileService.addUserProfile(user);
+		Long userId = userProfile.getId();
+		userRoleService.addUserRole(userId, BaseParam.MAX_DURATION, RoleEnum.LOGIN);
 		return userProfileToLoginUserVO(userProfile);
 	}
 

@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+import org.yuanhong.li.wealth.api.consts.RoleEnum;
 import org.yuanhong.li.wealth.api.meta.Role;
 import org.yuanhong.li.wealth.api.meta.RoleResource;
 import org.yuanhong.li.wealth.api.meta.UserRole;
@@ -68,6 +69,18 @@ public class UserRoleServiceImpl implements UserRoleService{
 	@Override
 	public List<RoleResource> getRoleResources(Long roleId, Long parentId) {
 		return roleResourceMapper.selectByRoleId(roleId, parentId);
+	}
+
+	@Override
+	public int addUserRole(Long userId, Long duration, RoleEnum role) {
+		UserRole userRole = new UserRole();
+		userRole.setUserId(userId);
+		userRole.setDuration(duration);
+		userRole.setIsDeleted(0L);
+		userRole.setStatus(0L);
+		userRole.setObtainTime(System.currentTimeMillis());
+		userRole.setRoleId(role.getCode());
+		return userRoleMapper.insertSelective(userRole);
 	}
 
 }

@@ -23,7 +23,7 @@ public class SystemController {
 		countries.add("Germany");
 		countries.add("France");
 		model.addAttribute("countries",countries);
-		return "test/test";
+		return "system/error";
 	}
 	
 	@RequestMapping(value = "/api/system/info", method = RequestMethod.GET)

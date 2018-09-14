@@ -43,5 +43,5 @@ public interface UserRoleFacade {
 	 * @param parentId
 	 * @return
 	 */
-	public List<RoleResource> getUserResourceList(Long roleId, Long parentId);
+	public List<RoleResource> getUserResourceList(Long userId, Long parentId);
 }

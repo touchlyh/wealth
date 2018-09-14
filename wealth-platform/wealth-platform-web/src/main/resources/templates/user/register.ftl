@@ -39,13 +39,13 @@
 <body>
 	<div class="view">
     <header class="navbar" role="banner">
-        <h1 class="navbar-heading">登录恐怖漫画</h1>
+        <h1 class="navbar-heading">注册恐怖漫画</h1>
         <a href="javascript:void(0)" class="navbar-back navbar-back--text js-navback">返回</a>
     </header>
 		<div class="container LoginWrap">
 			<div id="login-area" class="login-area">
 
-			<form id="login_form" method="post" action="/api/user/login.do" class="login-classic LoginClassic">
+			<form id="register_form" method="post" action="/api/user/register.do" class="login-classic LoginClassic">
 			  <input name="next" type="hidden" value="${next!}" />
 			  <input name="csrfToken" type="hidden" value="" />
 			  <div class="control-wrap control-wrap--hasIcon">
@@ -54,49 +54,25 @@
 			  </div>
 			  <div class="control-wrap control-wrap--hasIcon">
 				  <i class="icon sprite-reg-lock"></i>
-				<input type="password" id="password" name="password" class="ipt u-ipt ipt-block" placeholder="密码">
+				<input type="password" id="password1" name="password" class="ipt u-ipt ipt-block" placeholder="密码">
+			  </div>
+			  <div class="control-wrap control-wrap--hasIcon">
+				  <i class="icon sprite-reg-lock"></i>
+				<input type="password" id="password2" name="password2" class="ipt u-ipt ipt-block" placeholder="确认密码">
 			  </div>
 			  <div class="control-wrap captcha js-flag row"></div>
 			  <p class="err f-dn js-flag"></p>
 			  <div class="row-1 f-cb row">
-				<!-- <a href="/account/resetPassword/step1" class="f-fr js-flag">忘记密码？</a> -->
 				<p class="f-fr js-flag">${msg!}</p>
 			  </div>
 			  <div class="row">
-				<button id="login_btn" class="u-btn s-btn u-login u-brd u-ot js-flag btn btn--primary" onclick="document.getElementById('login_form').submit();">登录</button>
-			  </div>
-			  <div class="row-register m-register LoginClassic__resgiter">
-				<a href="/api/user/register" class="mobi-reg small js-flag">手机号快速注册</a>
+				<button id="login_btn" class="u-btn s-btn u-login u-brd u-ot js-flag btn btn--primary" onclick="document.getElementById('register_form').submit();">注册</button>
 			  </div>
 			</form>
 
 			</div>
 		</div>
 
-		<div class="f-pr m-login-other container container-s" >
-			<div class="u-line"></div>
-			<div class="u-line-text" >使用以下账号登录</div>
-		</div>
-
-
-		<div class="m-login-other container container-s LoginMethod">
-
-			<a class="js-phoneSwitcher" href="javascript:void(0)">
-				<span class="sprite-sns-mail icon"></span>
-				<div class="plainText LoginMethod__plainText">邮箱</div>
-			</a>
-			<a id="qq" href="https://login.manhua.163.com/login/qq_authorize?redirect=https%3A%2F%2Fh5.manhua.163.com%2Flogin%2Fcallback%3FtargetUrl%3D%252F">
-				<span class="sprite-sns-qq icon"></span>
-				<div class="plainText LoginMethod__plainText">QQ</div>
-			</a>
-			<a id="sina" href="https://login.manhua.163.com/login/weibo_authorize?redirect=https%3A%2F%2Fh5.manhua.163.com%2Flogin%2Fcallback%3FtargetUrl%3D%252F">
-				<span class="sprite-sns-sina icon"></span>
-				<div class="plainText LoginMethod__plainText">微博</div>
-			</a>
-		</div>
-		<div class="m-declaration">
-			<input id="declaration" class="u-checkbox u-ot" checked="true" type="checkbox" >我同意<a href="/static/agreement.html">“服务条款”</a>和<a href="/static/privacy-policy.html">“隐私策略”</a>
-		</div>
 	</div>
 
 </body>

@@ -56,14 +56,12 @@ public class UserRoleFacadeImpl implements UserRoleFacade{
 
 	@Override
 	public List<RoleResource> getRoleResourceList(Long roleId, Long parentId) {
-		// TODO Auto-generated method stub
-		return null;
+		return userRoleService.getRoleResources(roleId, parentId);
 	}
 
 	@Override
-	public List<RoleResource> getUserResourceList(Long roleId, Long parentId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<RoleResource> getUserResourceList(Long userId, Long parentId) {
+		return userRoleService.getUserRoleResources(userId, parentId);
 	}
 
 }
